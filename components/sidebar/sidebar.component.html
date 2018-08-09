@@ -1,0 +1,25 @@
+<nav class="navbar bg-dark side-bar-nav">
+
+  <!-- Links -->
+  <ul class="navbar-nav">
+    <li class="nav-item" *ngIf = "isNavbarIcon != '/login'">
+      <a class="nav-link" [routerLinkActive]="['active']" [routerLink]="['/dashboard']" ><i class="fa fa-desktop" aria-hidden="true"></i><span >Dashboard</span></a>
+    
+    </li>
+    <li class="nav-item" *ngIf = "isNavbarIcon != '/login'">
+      <a class="nav-link" [routerLink]="['/sales-order']" [routerLinkActive]="['active']"><i class="fa fa-download" aria-hidden="true"></i><span >Sales Order</span></a>
+    </li>
+    <li class="nav-item" *ngIf = "isNavbarIcon != '/login'">
+      <a class="nav-link" [routerLink]="['/production-order']" [routerLinkActive]="['active']"><i class="fa fa-database" aria-hidden="true"></i> <span >Production Order</span></a>
+    </li>
+    <li class="nav-item" *ngIf = "isNavbarIcon != '/login'">
+      <a class="nav-link" [routerLink]="['/welcome']"><i class="fa fa-list-alt" aria-hidden="true"></i><span >Reports</span></a>
+    
+    </li>
+    <li class="nav-item" *ngIf = "isNavbarIcon != '/login'">
+      <a class="nav-link" [routerLink]="['/welcome']"><i class="fa fa-desktop" aria-hidden="true"></i><span >Configuration</span></a>
+      <a class="nav-link"><i class="fa fa-desktop" aria-hidden="true"></i><span >Configuration</span></a>
+    </li>
+  </ul>
+
+</nav>

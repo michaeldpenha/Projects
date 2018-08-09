@@ -1,0 +1,39 @@
+table {
+    max-width:100%;
+    table-layout:fixed;
+    margin:auto;
+}
+thead {
+    display:table;
+    width:100%;
+    width:calc(100% - 18px);
+}
+tbody {
+    min-height: 45px;
+    max-height: 340px;
+    overflow:auto;
+    overflow-x:hidden;
+    display:block;
+    width:calc(100% + 18px);
+    padding-right: 15px;
+}
+tbody tr {
+    display:table;
+    width:100%;
+    // table-layout:fixed;
+}
+tbody::-webkit-scrollbar-track
+{
+    background-color: #d4d4d4;
+    padding-left: 10px;
+}
+tbody::-webkit-scrollbar
+{
+	width: 6px;
+    background-color: #d4d4d4;
+}
+tbody::-webkit-scrollbar-thumb
+{
+	background-color: #888888;
+    border-radius: 150px;
+}

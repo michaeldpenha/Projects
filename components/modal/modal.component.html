@@ -1,0 +1,10 @@
+<div class="alert-box">
+    <div class="modal-header font-bold">{{headerMsg}}</div>
+    <div class="modal-body">
+        <span class="modal-message">{{modalMessage}} <a *ngIf="anchorVisible" (click)="onAnchorClick()">Click here</a></span>
+    </div>
+    <div class="modal-footer">
+        <button type="button" *ngIf="enableCancelBtn" class="btn btn-ternary" data-dismiss="modal" (click)="onCancel()">{{cancelButtonTxt}}</button>
+        <button type="submit" *ngIf="enableSuccessBtn" class="btn btn-secondary" (click)="onClickOk()">{{successButtonText}}</button>
+    </div>
+</div>  

@@ -1,0 +1,57 @@
+  <table class="table table-grid">
+    <thead>
+      <tr>
+        <th><input type="checkbox" (click)="allSelected($event)" [checked]="allItemsSelected"></th>
+        <ng-container *ngFor="let colDef of columnDefs">
+          <th>
+            <div (click)="triggerSort(colDef)">
+              {{colDef.title}}<span *ngIf="showSortingOptions(colDef)"><span class="sort-arrow" *ngIf="!reverseSort"><i class="fa fa-caret-up"></i></span>
+            <span class="sort-arrow" *ngIf="reverseSort"><i class="fa fa-caret-down"></i></span>
+                </span>
+            </div>
+          </th>
+        </ng-container>
+      </tr>
+    </thead>
+    <tbody>
+      
+      <ng-container *ngFor="let data of gridData">
+        <tr>
+          <td><input type="checkbox" [disabled]="disableCheckBox(data)" (click)="rowSelection(data)" [checked]="data.selected"></td>
+
+          <ng-container *ngFor="let colDef of columnDefs; let last = last">
+          <!--<ng-container *ngIf="colDef.enableClickEvent">
+            <td (click)="cellClick(colDef.name,colDef.orderId)">
+          </ng-container>
+          <ng-container *ngIf="!colDef.enableClickEvent">
+            <td>
+          </ng-container>-->
+          <td>
+            <ng-container *ngIf="colDef.enableClickEvent">
+              <div class="progress-bar-text" (click)="cellClick(colDef.name,data.orderId)">{{customTemplate(data,colDef)}}</div>
+            </ng-container>
+            <ng-container *ngIf="!colDef.enableClickEvent">
+              <div class="progress-bar-text">{{customTemplate(data,colDef)}}</div>
+            </ng-container>
+            <div class="que-progress-bar">
+              <ng-container *ngIf="last">
+                <app-progress-status></app-progress-status>
+              </ng-container>
+            </div>
+          </td>
+        </ng-container>
+        </tr>
+      </ng-container>
+
+      <!--<tr>
+        <td>John</td>
+        <td>Doe</td>
+        <td>john@example.com</td>
+      </tr>-->
+      <ng-container *ngIf="gridData.length == 0">
+        <td colspan="9">
+          <p>{{noRecord}}</p>
+        </td>
+      </ng-container>
+    </tbody>
+  </table>

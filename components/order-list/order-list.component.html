@@ -1,0 +1,95 @@
+<div class="row search-row">
+  <div class="col-sm-6">
+    <div class="row">
+      <div class="col-9">
+        <app-searchfield [placeholder]="placeholder" (searchTrigger)="searchData($event)"></app-searchfield>
+      </div>
+      <div class="col-3">
+        <div class="pipe"></div>
+        <app-button [cls]="filterButtonClass" (onButtonClick)="displayFilterOptions()"></app-button>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-12 d-md-none">
+    <br/>
+    <ng-container *ngFor="let item of adavancedArray">
+      <app-removable-card [label]="item.value" [item]="item" (removeCard)="removeFilter($event)"></app-removable-card>
+    </ng-container>
+    <hr/>
+  </div>
+  <div class="col-sm-6 text-md-right so-buttons">
+
+    <app-button [cls]="secondaryButtonClass" [text]="beforeRedirect" [disabled]="selectedArray.length == 0" (onButtonClick)="generateOrders()"></app-button>
+    <app-button  [cls]="secondaryButtonClass" [text]="redirectText" [disabled]="selectedArray.length == 0" (onButtonClick)="redirect()"></app-button>
+  </div>
+</div>
+
+<div class="row" [hidden]="!displayFilterOption">
+  <div class="col">
+
+    <div class="card filter-panel">
+      <div class="card-body">
+        <app-filter-panel  [displayPanel]="displayFilterOption" (applyFilter)="applyFilter()" (clearFilter)="clearFilter()"   >
+          <form [formGroup]="filterForm" class="row">
+            <ng-container *ngFor="let filter of advanFilterForm">
+              <div [ngClass]="filter.parentClass" class="row">
+                <label class="col-4 col-sm-12" [for]="filter.dataIndex">{{filter.label}} </label>
+                <ng-container *ngIf="filter.key == 'to'">
+                  <div class="blank-labels"></div>
+                </ng-container>
+                <ng-container *ngIf="filter.type === 'I'">
+                  <ng-container *ngIf="ifDateField(filter)">
+                    <div class="col-8 col-sm-12">
+                      <input [type]="filter.subType" 
+                       [formControlName]="filter.dataIndex" [id]="filter.dataIndex" [name]="filter.dataIndex" [placeholder]="filter.key"
+                        [ngClass]="filter.inputClass" [bsConfig]="datePickerConfig(filter)" bsDatepicker readonly>
+                    </div>
+                  </ng-container>
+                  <ng-container *ngIf="!ifDateField(filter)">
+                    <div class="col-8 col-sm-12">
+                      <input oninput="validity.valid||(value='');" min="0" [type]="filter.subType" [formControlName]="filter.dataIndex" [id]="filter.dataIndex" [name]="filter.dataIndex"
+                        [placeholder]="filter.key" [ngClass]="filter.inputClass">
+                        
+                    </div>
+                      <div  *ngIf="displayErrorMessages(filter) && filter.dataIndex=='volumeFrom'" class="form-error-message">Volume To should be greater than Volume From.</div>
+            
+                  </ng-container>
+
+                </ng-container>
+                <ng-container *ngIf="filter.type == 'S'">
+                  <div class="col-8 col-sm-12">
+                    <select [formControlName]="filter.dataIndex" [ngClass]="filter.inputClass">
+                        <ng-container *ngFor="let option of filter.options; let first = first">
+                          <ng-container *ngIf="first">
+                            <option value="">Select</option>
+                          </ng-container>
+                          <option [value]="option.key">{{option.value}}</option>
+                        </ng-container>
+                      </select>
+                  </div>
+                </ng-container>
+              </div>
+            </ng-container>
+            <span [hidden]="!filterForm.get('volumeTo').fromAndToValidator || !filterForm.get('volumeFrom').fromAndToValidator" class="alert alert-danger">fghgfh</span>
+          </form>
+        </app-filter-panel>
+      </div>
+      
+    </div>
+  </div>
+</div>
+<div class="d-none d-md-block">
+  <ng-container *ngFor="let item of adavancedArray">
+    <app-removable-card [label]="item.value" [item]="item" (removeCard)="removeFilter($event)"></app-removable-card>
+  </ng-container>
+</div>
+<app-grid class="d-none d-md-block" [checkBoxDisable]="config.checkboxDisable" [columnDefs]="columnDefs" [data]="data" (sortTrigger)="sortGridData($event)" (allChecked)="allSOSelected($event)"
+  (onCellClick)="cellClick($event)" (rowSelected)="rowSelected($event)" [allItemsSelected]="allCheck"></app-grid>
+
+<div class="m-order-list">
+  <app-m-order-list [checkBoxDisable]="config.checkboxDisable" class="d-sm-none" [config]="config.mobileOrderList" [data]="data" (rowSelected)="rowSelected($event)"></app-m-order-list>
+</div>
+<ng-container *ngIf="data.length > 0">
+  <app-pagination  [pageLimitArray]="pageLimitArray" [count]="totalRecords" class="row" [page]="defaultPage" [perPage]="pageLimit"
+    [pagesToShow]="5" (goPrev)="previousPage($event)" (goNext)="nextPage($event)" (goPage)="goToPage($event)" (changeInPerPage)="pageLimitChange($event)"></app-pagination>
+</ng-container>

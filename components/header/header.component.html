@@ -1,0 +1,40 @@
+<nav class="navbar navbar-expand-sm bg-dark d-flex justify-content-between">
+
+  <div class="navbar-header">
+    <a *ngIf = "isNavbarIcon != '/login'" href="#" class="hide-on-mobile">
+      <i class="fa fa-home" aria-hidden="true"></i>
+    </a>
+    <a (click)="expandSidebar()">
+      <i class="fa fa-bars" aria-hidden="true"></i>
+    </a>
+  </div>
+
+  <a class="navbar-brand" href="#">Rapid<b>Pull</b></a>
+
+  <ul class="navbar-nav justify-content-end">
+    <li *ngIf = "isNavbarIcon != '/login'">
+        <a href="#">
+            <i class="fa fa-bell-o" aria-hidden="true"></i>
+          </a>
+    </li>
+    <li *ngIf = "isNavbarIcon != '/login'">
+        <a href="#" class="hide-on-mobile">
+            <i class="fa fa-question-circle-o" aria-hidden="true"></i>
+          </a>
+    </li>
+    <li *ngIf = "isNavbarIcon != '/login'">
+        <div class="dropdown" dropdown >
+            <a dropdownToggle role="button">
+              <i class="fa fa-user-o" aria-hidden="true"></i>
+              <span class="hide-on-mobile">Welcome<br/><strong>John Doe</strong></span>
+              <i class="fa fa-caret-down hide-on-mobile"></i>
+            </a>
+            <ul *dropdownMenu class="dropdown-menu">
+              <li>
+                <a href="#">Logout</a>
+              </li>
+            </ul>
+          </div>
+    </li>
+  </ul>
+</nav>

@@ -1,0 +1,105 @@
+<div class="reassign container">
+
+  <div class="">
+    <h1>
+      <span>
+        <a (click)="onCancel()">
+          <i class="fa fa-arrow-left" aria-hidden="true"></i>
+        </a>
+      </span> {{headerText}}
+    </h1>
+  </div>
+
+  <div class="page-body">
+    <form [formGroup]="reassignForm" (ngSubmit)="onSubmitReassign(reassignForm)">
+      <label (click)="showHideIcon()">
+        <span class="d-sm-none d-md-none d-lg-none d-xl-none border-circle">
+          <i class="fa fa-minus" aria-hidden="true" *ngIf="showHide"></i>
+          <i class="fa fa-plus" aria-hidden="true" *ngIf="!showHide"></i>
+        </span>
+        {{selectionText}} ({{selectedArray.length}})
+      </label>
+      <div class="selectedSO" *ngIf="showHide">
+        <app-removable-card (removeCard)="removeSelectedArray($event,selected)" [label]="selected[selectedKey]" *ngFor="let selected of selectedArray"></app-removable-card>
+      </div>
+      <hr />
+
+      <label>Please select redirect option</label>
+      <div class="form-group">
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="so" value="satellite" (change)="checkType()" [checked]="redirectionMedium == 'satellite'">
+          <label class="form-check-label">External Satellites</label>
+        </div>
+        <div class="form-check form-check-inline" [hidden]="!isClientManagerRequired">
+          <input class="form-check-input" type="radio" formControlName="so" value="client_machine" (change)="checkType()">
+          <label class="form-check-label">Different Client Manager</label>
+        </div>
+        <div class="form-check form-check-inline">
+          <input class="form-check-input" type="radio" formControlName="so" value="cdp" (change)="checkType()">
+          <label class="form-check-label">CDP</label>
+        </div>
+      </div>
+      <hr />
+
+      <div class="form-group row" *ngIf="redirectionMedium == 'satellite'">
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>From</label>
+            <input type="text" class="form-control input-height" value="Existing satellite" disabled>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class="form-group">
+            <label>To</label>
+            <select class="form-control" formControlName="externalSatellite" required>
+              <option value="">Choose satellite</option>
+              <option *ngFor="let satellite of satellites" [value]="satellite.id">{{satellite.name}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    
+      <div class="form-group row" *ngIf="redirectionMedium == 'client_machine'">
+        <div class="col-lg-12">
+          Please select client manager and printer
+        </div>
+       
+          <ng-container *ngFor="let cm of clientMachine" class="">
+            <app-cards class="col-sm-2 col-6 margin-top" [selectionType]="selectionType" (recordSelected)="recordFromRadioSelection($event)" [cardDetail]='cm'>
+              <div class="text-center">{{cm.name}}</div>
+              </app-cards>
+          </ng-container>
+    
+      </div>
+      <br />
+      <div class="text-right">
+        <button type="button" class="btn btn-secondary" (click)="onCancel()">Cancel</button>
+        <button type="submit" class="btn btn-master" [disabled]="disableRedirect()" data-toggle="modal" data-target="#reassignConfirm">Redirect</button>
+      </div>
+
+      <!-- Reassign Confirmation Modal -->
+      <div class="modal fade" id="reassignConfirm" role="dialog">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+              <h4 class="modal-title">Reassign Confirmation</h4>
+            </div>
+            <div class="modal-body">
+              <h2>Are you sure?</h2>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+              <button type="button" class="btn btn-master" data-dismiss="modal">Redirect</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- .modal-->
+
+    </form>
+  </div>
+  <!-- .page-body -->
+
+</div>
+<!-- .reassign -->

@@ -1,0 +1,28 @@
+.selected {
+    display: inline-block;
+    border: 1px solid #ccc;
+    padding: 0.2rem 0.5rem;
+    margin-right: 0.5rem;
+    text-transform: capitalize;
+    margin-bottom: 10px;
+    font-size: 14px;
+    position: relative;
+    border-top-right-radius: 13px;
+    background: #d1f5ee;
+    cursor: pointer;
+
+
+    .cross {
+        display: inline-block;
+        border-radius: 50%;
+        width: 25px;
+        height: 25px;
+        padding: 0px;
+        margin: 0.2rem 0rem 0.2rem 0.5rem;
+        border: 1px solid #666;
+        text-align: center;
+        font: 22px Arial, sans-serif;
+        cursor: pointer;
+    }
+    
+}

@@ -1,0 +1,62 @@
+.side-bar-nav{
+    position: fixed;
+    top:60px;
+    bottom: 0;
+z-index: 99999999;
+    padding: 0;
+    background: #303236;
+   width:90px;
+    ul{
+        position: absolute;
+            top: 0;
+            
+                overflow: hidden;
+        .fa{
+            font-size: 21px
+        }
+        a,i{
+            color: #838383
+        }
+        a{
+            padding: 18px 33px 18px 33px;
+            border-left:5px solid #303236;
+            height: 60px;
+            display: flex;
+        }
+        li{
+            //border: 1px solid red;
+            height: 60px;
+            width:90px;
+        }
+        li:hover{
+            width:282px
+        }
+        li:hover span{
+            display: block!important
+        }
+        a:hover{
+            border-left: 5px solid #29272d;
+            background: #29272d;
+            color: #fff
+        }
+        a.active{
+            border-left: 5px solid #009688;
+            background: #29272d;
+            color: #fff;
+           
+        }
+        a.active .fa,a:hover .fa{
+                color: #fff;
+            }
+            span{
+                margin-left: 34px;
+                display: none;
+            }
+        
+    }
+}
+nav.menu-expand,nav.menu-expand ul li{
+    width: 282px;
+     -webkit-transition: width 1s; /* For Safari 3.1 to 6.0 */
+    transition: width 1s;
+}
